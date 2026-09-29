@@ -110,7 +110,25 @@
 
       .toast{position:fixed;right:22px;bottom:22px;z-index:2000;padding:13px 16px;border-radius:13px;background:var(--text);color:#fff;box-shadow:var(--shadow-hover);font-size:13px;font-weight:700;opacity:0;transform:translateY(10px);pointer-events:none;transition:.22s}.toast.show{opacity:1;transform:none}
       @media(max-width:1050px){.hero{align-items:flex-start;flex-direction:column}.quick-stats{width:100%;max-width:600px}.proposals{grid-template-columns:repeat(2,1fr)}.main{grid-template-columns:1fr}}
-      @media(max-width:650px){main{padding:42px 0 65px}.hero h1{letter-spacing:-2px}.quick-stats{grid-template-columns:1fr 1fr 1fr;min-width:0}.proposals{display:flex;overflow-x:auto;padding:3px 2px 15px}.proposal{flex:0 0 245px}.panel{padding:19px}.search-row{grid-template-columns:1fr}.quick-create{width:100%}.user-row{grid-template-columns:82px minmax(0,1fr) auto}.user-meta{display:none}.delete-user{display:none}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.modal{padding:12px}.modal-window{padding:24px 20px;border-radius:18px}.modal-actions{flex-direction:column-reverse}.modal-button{width:100%}}
+      @media(max-width:650px){main{padding:42px 0 65px}.hero h1{letter-spacing:-2px}.quick-stats{grid-template-columns:1fr 1fr 1fr;min-width:0}.proposals{display:flex;overflow-x:auto;padding:3px 2px 15px}.proposal{flex:0 0 245px}.panel{padding:19px}.search-row{grid-template-columns:1fr}.quick-create{width:100%}.user-row{grid-template-columns:82px minmax(0,1fr) auto}.user-meta{display:none}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.modal{padding:12px}.modal-window{padding:24px 20px;border-radius:18px}.modal-actions{flex-direction:column-reverse}.modal-button{width:100%}}
+    .delete-user{
+      width:36px;
+      height:36px;
+      border:0;
+      border-radius:10px;
+      background:var(--red-light);
+      color:var(--red);
+      cursor:pointer;
+      font-size:16px;
+      font-weight:800;
+      transition:.18s;
+    }
+
+    .delete-user:hover{
+      background:#fee2e2;
+      transform:scale(1.06);
+    }
+    
     </style>
 
 </head>
@@ -313,7 +331,7 @@
 
       usersEl.addEventListener("click",e=>{
         const fav=e.target.closest("[data-favorite-user]");if(fav){const d=getAdminData(),u=d.users.find(x=>x.id===fav.dataset.favoriteUser);if(u){u.favorite=!u.favorite;saveAdminData(d);renderUsers()}return}
-        const del=e.target.closest("[data-delete-user]");if(del){const d=getAdminData(),u=d.users.find(x=>x.id===del.dataset.deleteUser);if(u&&confirm(`Supprimer ${u.firstname} ${u.lastname||""} ?`)){d.users=d.users.filter(x=>x.id!==u.id);saveAdminData(d);renderUsers();renderHistory();toast("Utilisateur supprimé")}return}
+        const del=e.target.closest("[data-delete-user]");if(del){const d=getAdminData(),u=d.users.find(x=>x.id===del.dataset.deleteUser);if(u){d.users=d.users.filter(x=>x.id!==u.id);saveAdminData(d);renderUsers();renderHistory();toast("Utilisateur supprimé")}return}
         const edit=e.target.closest("[data-edit-user]");if(edit)openEdit(edit.dataset.editUser);
         const act=e.target.closest("[data-action-user]");if(act)openAction(act.dataset.actionUser);
       });
