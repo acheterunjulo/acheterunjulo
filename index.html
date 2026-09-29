@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Page verrouillée - JULO</title>
+
+<style>
+    :root {
+        --background: #f6f8fc;
+        --surface: #ffffff;
+        --text: #172033;
+        --text-secondary: #6b7280;
+
+        --primary: #2563eb;
+        --primary-light: #dbeafe;
+
+        --yellow: #facc15;
+        --yellow-dark: #eab308;
+
+        --border: #dbe1ea;
+        --border-focus: var(--primary);
+
+        --error: #ef4444;
+        --success: #22c55e;
+
+        --radius: 14px;
+        --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        font-family:
+            Inter,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+
+        background: var(--background);
+        color: var(--text);
+
+        display: flex;
+        justify-content: center;
+    }
+
+    .main {
+        width: 100%;
+        max-width: 900px;
+        min-height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ---------------- HEADER ---------------- */
+
+    .up {
+        padding: 35px 25px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .up h1 {
+        margin: 0;
+
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -1px;
+
+        /*
+         * ² jaune -> bleu
+         */
+        background: linear-gradient(
+            135deg,
+            var(--yellow-dark),
+            var(--primary)
+        );
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* ---------------- CENTER ---------------- */
+
+    .center {
+        width: calc(100% - 40px);
+        max-width: 500px;
+
+        margin: auto;
+
+        padding: 40px 30px;
+
+        background: var(--surface);
+        border-radius: 20px;
+
+        box-shadow: var(--shadow);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .lock-icon {
+        width: 60px;
+        height: 60px;
+
+        margin-bottom: 20px;
+
+        border-radius: 50%;
+
+        background: var(--primary-light);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 26px;
+    }
+
+    .center p {
+        margin: 0 0 28px;
+
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    /* ---------------- PASSWORD ---------------- */
+
+    .password-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .password {
+        width: 48px;
+        height: 58px;
+
+        border: 2px solid var(--border);
+        border-radius: var(--radius);
+
+        background: #fff;
+
+        color: var(--text);
+
+        text-align: center;
+        font-size: 25px;
+        font-weight: 600;
+
+        outline: none;
+
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease,
+            transform 0.15s ease;
+    }
+
+    .password:focus {
+        border-color: var(--border-focus);
+
+        box-shadow:
+            0 0 0 4px rgba(37, 99, 235, 0.12);
+
+        transform: translateY(-2px);
+    }
+
+    .password.error {
+        border-color: var(--error);
+
+        animation: shake 0.3s ease;
+    }
+
+    .password.success {
+        border-color: var(--success);
+    }
+
+    /* ---------------- MESSAGE ---------------- */
+
+    .message {
+        min-height: 22px;
+
+        margin-top: 18px;
+
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .message.error {
+        color: var(--error);
+    }
+
+    .message.success {
+        color: var(--success);
+    }
+
+    /* ---------------- ANIMATION ---------------- */
+
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px);
+        }
+
+        50% {
+            transform: translateX(5px);
+        }
+
+        75% {
+            transform: translateX(-5px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    /* ---------------- MOBILE ---------------- */
+
+    @media (max-width: 500px) {
+        .center {
+            padding: 35px 20px;
+        }
+
+        .password-container {
+            gap: 6px;
+        }
+
+        .password {
+            width: 43px;
+            height: 53px;
+            font-size: 23px;
+        }
+
+        .up h1 {
+            font-size: 34px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="up">
+        <h1>JULO</h1>
+    </div>
+
+    <div class="center">
+
+        <div class="lock-icon">
+            🔒
+        </div>
+
+        <p>
+            Cette page est verrouillée par un mot de passe.
+        </p>
+
+        <div class="password-container">
+
+            <input
+                type="password"
+                class="password"
+                maxlength="1"
+
+                autocomplete="one-time-code"
+            >
+
+            <input
+                type="password"
+                class="password"
+                maxlength="1"
+
+            >
+
+            <input
+                type="password"
+                class="password"
+                maxlength="1"
+
+            >
+
+            <input
+                type="password"
+                class="password"
+                maxlength="1"
+
+            >
+
+            <input
+                type="password"
+                class="password"
+                maxlength="1"
+
+            >
+
+        </div>
+
+        <div class="message" id="message"></div>
+
+    </div>
+</div>
+
+
+<script>
+
+    /*
+     * ============================================================
+     * CONFIGURATION
+     * ============================================================
+     */
+
+    // Ton mot de passe
+    const PASSWORD = "j-pnj";
+
+    // Nom de la clé utilisée dans le localStorage
+    const ACCESS_KEY = "JULO-access";
+
+    // Page vers laquelle rediriger
+    const HOME_PAGE = "home.html";
+
+
+    /*
+     * ============================================================
+     * FONCTIONS D'ACCÈS JULO
+     * ============================================================
+     */
+
+    /**
+     * Vérifie si l'utilisateur possède déjà l'accès.
+     *
+     * Peut être réutilisée sur d'autres pages :
+     *
+     * if (hasJuloAccess()) {
+     *     // accès autorisé
+     * }
+     */
+    function hasJuloAccess() {
+        return localStorage.getItem(ACCESS_KEY) === "true";
+    }
+
+
+    /**
+     * Enregistre l'accès dans le cache du navigateur.
+     */
+    function saveJuloAccess() {
+        localStorage.setItem(ACCESS_KEY, "true");
+    }
+
+
+    /**
+     * Supprime l'accès enregistré.
+     *
+     * Utile par exemple pour un bouton "Déconnexion".
+     */
+    function logoutJulo() {
+        localStorage.removeItem(ACCESS_KEY);
+    }
+
+
+    /**
+     * Vérifie le mot de passe.
+     *
+     * Retourne true si le mot de passe est correct,
+     * false sinon.
+     */
+    function checkPassword(password) {
+        return password === PASSWORD;
+    }
+
+
+    /**
+     * Vérifie le mot de passe puis redirige
+     * si celui-ci est correct.
+     */
+    function verifyAndRedirect(password) {
+
+        if (!checkPassword(password)) {
+            return false;
+        }
+
+        saveJuloAccess();
+
+        window.location.href = HOME_PAGE;
+
+        return true;
+    }
+
+
+    /*
+     * ============================================================
+     * VÉRIFICATION DE L'ACCÈS AU CHARGEMENT
+     * ============================================================
+     */
+
+    if (hasJuloAccess()) {
+        window.location.replace(HOME_PAGE);
+    }
+
+
+    /*
+     * ============================================================
+     * CHAMPS DU MOT DE PASSE
+     * ============================================================
+     */
+
+    const inputs = document.querySelectorAll(".password");
+    const message = document.getElementById("message");
+
+
+    /*
+     * Focus automatique sur le premier champ
+     */
+
+    inputs[0].focus();
+
+
+    /*
+     * ============================================================
+     * RÉCUPÉRER LE CODE
+     * ============================================================
+     */
+
+    function getPassword() {
+        return Array.from(inputs)
+            .map(input => input.value)
+            .join("");
+    }
+
+
+    /*
+     * ============================================================
+     * VÉRIFICATION AUTOMATIQUE
+     * ============================================================
+     */
+
+function verifyInputs() {
+
+    const password = getPassword();
+
+    // Pas encore tous les caractères
+    if (password.length !== inputs.length) {
+        return;
+    }
+
+    // Limite atteinte
+    if (!canTryPassword()) {
+
+        message.textContent =
+            "Nombre maximum de tentatives atteint pour aujourd'hui.";
+
+        message.className = "message error";
+
+        return;
+    }
+
+    if (verifyAndRedirect(password)) {
+
+        inputs.forEach(input => {
+            input.classList.add("success");
+        });
+
+        message.textContent = "Accès autorisé.";
+        message.className = "message success";
+
+    } else {
+
+        // Tentative incorrecte
+        registerAttempt();
+
+        inputs.forEach(input => {
+            input.classList.add("error");
+        });
+
+        const remaining = getRemainingAttempts();
+
+        message.textContent =
+            remaining > 0
+                ? `Mot de passe incorrect. ${remaining} tentative${remaining > 1 ? "s" : ""} restante${remaining > 1 ? "s" : ""}.`
+                : "Mot de passe incorrect. Plus de tentatives aujourd'hui.";
+
+        message.className = "message error";
+
+        setTimeout(() => {
+
+            inputs.forEach(input => {
+                input.value = "";
+                input.classList.remove("error");
+            });
+
+            inputs[0].focus();
+
+        }, 600);
+    }
+}
+
+    /*
+     * ============================================================
+     * GESTION DES TOUCHES
+     * ============================================================
+     */
+
+    inputs.forEach((input, index) => {
+
+        input.addEventListener("input", () => {
+
+            // Passer automatiquement au suivant
+            if (
+                input.value !== "" &&
+                index < inputs.length - 1
+            ) {
+                inputs[index + 1].focus();
+            }
+
+            // Vérifier lorsque les 6 caractères sont remplis
+            verifyInputs();
+        });
+
+
+        input.addEventListener("keydown", (event) => {
+
+            /*
+             * Backspace :
+             * si le champ est vide, revenir au précédent.
+             */
+
+            if (
+                event.key === "Backspace" &&
+                input.value === "" &&
+                index > 0
+            ) {
+                inputs[index - 1].focus();
+            }
+
+
+            /*
+             * Flèche gauche
+             */
+
+            if (
+                event.key === "ArrowLeft" &&
+                index > 0
+            ) {
+                inputs[index - 1].focus();
+            }
+
+
+            /*
+             * Flèche droite
+             */
+
+            if (
+                event.key === "ArrowRight" &&
+                index < inputs.length - 1
+            ) {
+                inputs[index + 1].focus();
+            }
+        });
+
+
+        /*
+         * Collage d'un code complet
+         */
+
+        input.addEventListener("paste", (event) => {
+
+            event.preventDefault();
+            const pasted = event.clipboardData
+                .getData("text")
+                .slice(0, inputs.length);
+
+
+            pasted.split("").forEach((char, i) => {
+                inputs[i].value = char;
+            });
+
+
+            if (pasted.length === inputs.length) {
+                verifyInputs();
+            } else if (pasted.length > 0) {
+                inputs[Math.min(
+                    pasted.length,
+                    inputs.length - 1
+                )].focus();
+            }
+        });
+
+    });
+
+    const ATTEMPTS_KEY = "JULO-login-attempts";
+const MAX_ATTEMPTS = 5;
+
+function getToday() {
+    return new Date().toISOString().slice(0, 10);
+}
+
+function getAttemptsData() {
+    const saved = localStorage.getItem(ATTEMPTS_KEY);
+
+    if (!saved) {
+        return {
+            date: getToday(),
+            attempts: 0
+        };
+    }
+
+    try {
+        const data = JSON.parse(saved);
+
+        // Nouveau jour → on remet à zéro
+        if (data.date !== getToday()) {
+            return {
+                date: getToday(),
+                attempts: 0
+            };
+        }
+
+        return data;
+
+    } catch {
+        return {
+            date: getToday(),
+            attempts: 0
+        };
+    }
+}
+
+function getRemainingAttempts() {
+    const data = getAttemptsData();
+
+    return MAX_ATTEMPTS - data.attempts;
+}
+
+function canTryPassword() {
+    return getRemainingAttempts() > 0;
+}
+
+function registerAttempt() {
+    const data = getAttemptsData();
+
+    data.attempts++;
+
+    localStorage.setItem(
+        ATTEMPTS_KEY,
+        JSON.stringify(data)
+    );
+}
+
+</script>
+
+</body>
+</html>
